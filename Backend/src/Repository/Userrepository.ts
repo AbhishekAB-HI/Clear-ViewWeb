@@ -3,7 +3,7 @@ import { IUser, IUserReturn } from "../entities/userEntities";
 import { Posts, Postsget } from "../entities/Postentities";
 import newspostSchemadata from "../model/newsModal";
 import UserSchemadata from "../model/userModel";
-import UserTempSchemadata from "../model/Usertempmodel";
+import UserTempSchemadata from "../model/userTempModel";
 import cloudinary from "../config/Cloudinaryconfig";
 import HashPassword from "../Utils/Hashpassword";
 import {
