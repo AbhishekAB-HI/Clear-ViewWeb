@@ -208,9 +208,6 @@ class ChatServices implements IChatServices {
   ): Promise<Notification[] | unknown> {
     try {
       const data = await this.chatRepository.findAllNotifications(userId);
-      if (!data) {
-        throw new Error("No notifications get");
-      }
       return data;
     } catch (error) {
       console.log(error);

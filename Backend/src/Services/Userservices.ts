@@ -347,6 +347,25 @@ class userServises implements IUserServices {
     }
   }
 
+  async getthepostupdations(
+    search: string | any | string[] | any[] = "",
+    category: string | any | string[] | any[] = "",
+    page: string | number
+  ): Promise<{
+    posts: Posts[];
+    currentPage: string | number;
+    totalPages: number;
+  }> {
+    const { posts, currentPage, totalPages } =
+      await this.userRepository.getAllUpdatepost(search, category, page);
+
+    return {
+      posts,
+      currentPage,
+      totalPages,
+    };
+  }
+
   async getpostdetails(
     search: string | any | string[] | any[] = "",
     category: string | any | string[] | any[] = "",

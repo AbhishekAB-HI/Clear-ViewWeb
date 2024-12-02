@@ -626,6 +626,281 @@ class userRepository implements IUserRepository {
     }
   }
 
+  async getAllUpdatepost(
+    search: string,
+    category: string,
+    page: string | number
+  ): Promise<{
+    posts: Posts[];
+    currentPage: string | number;
+    totalPages: number;
+  }> {
+    const limit = 5 * Number(page);
+
+    try {
+      if (category === "Allpost") {
+        const posts = await newspostSchemadata
+          .aggregate([
+            { $match: { BlockPost: false } },
+            {
+              $lookup: {
+                from: "userdetails",
+                localField: "user",
+                foreignField: "_id",
+                as: "user",
+              },
+            },
+            { $unwind: "$user" },
+
+            {
+              $match: {
+                $or: [
+                  { description: { $regex: search, $options: "i" } },
+                  { "user.name": { $regex: search, $options: "i" } },
+                ],
+              },
+            },
+
+            { $sort: { _id: -1 } },
+
+            {
+              $lookup: {
+                from: "userdetails",
+                localField: "comments.user",
+                foreignField: "_id",
+                as: "commentUsers",
+              },
+            },
+
+            {
+              $addFields: {
+                comments: {
+                  $map: {
+                    input: "$comments",
+                    as: "comment",
+                    in: {
+                      $mergeObjects: [
+                        "$$comment",
+                        {
+                          user: {
+                            $arrayElemAt: [
+                              "$commentUsers",
+                              {
+                                $indexOfArray: [
+                                  "$comments.user",
+                                  "$$comment.user",
+                                ],
+                              },
+                            ],
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+              },
+            },
+
+            { $unset: "commentUsers" },
+
+            {
+              $lookup: {
+                from: "userdetails",
+                localField: "likes",
+                foreignField: "_id",
+                as: "likes",
+              },
+            },
+          ])
+          .limit(Number(limit));
+
+        const totalPosts = await newspostSchemadata.countDocuments();
+
+        if (posts.length === 0) {
+          return { posts: [], currentPage: 0, totalPages: 0 };
+        }
+        return {
+          posts,
+          currentPage: page,
+          totalPages: Math.ceil(totalPosts / limit),
+        };
+      } else if (category === "Latest news") {
+        const fiveHoursAgo = new Date(Date.now() - 5 * 60 * 60 * 1000);
+        const latestposts = await newspostSchemadata
+          .aggregate([
+            { $match: { BlockPost: false, createdAt: { $gte: fiveHoursAgo } } },
+            {
+              $lookup: {
+                from: "userdetails",
+                localField: "user",
+                foreignField: "_id",
+                as: "user",
+              },
+            },
+            { $unwind: "$user" },
+
+            {
+              $match: {
+                $or: [
+                  { description: { $regex: search, $options: "i" } },
+                  { "user.name": { $regex: search, $options: "i" } },
+                ],
+              },
+            },
+
+            { $sort: { _id: -1 } },
+
+            {
+              $lookup: {
+                from: "userdetails",
+                localField: "comments.user",
+                foreignField: "_id",
+                as: "commentUsers",
+              },
+            },
+
+            {
+              $addFields: {
+                comments: {
+                  $map: {
+                    input: "$comments",
+                    as: "comment",
+                    in: {
+                      $mergeObjects: [
+                        "$$comment",
+                        {
+                          user: {
+                            $arrayElemAt: [
+                              "$commentUsers",
+                              {
+                                $indexOfArray: [
+                                  "$comments.user",
+                                  "$$comment.user",
+                                ],
+                              },
+                            ],
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+              },
+            },
+
+            { $unset: "commentUsers" },
+
+            {
+              $lookup: {
+                from: "userdetails",
+                localField: "likes",
+                foreignField: "_id",
+                as: "likes",
+              },
+            },
+          ])
+          .limit(Number(limit));
+
+        const totalPosts = await newspostSchemadata.countDocuments();
+
+        if (latestposts.length === 0) {
+          return { posts: [], currentPage: 0, totalPages: 0 };
+        }
+
+        return {
+          posts: latestposts,
+          currentPage: page,
+          totalPages: Math.ceil(totalPosts / limit),
+        };
+      }
+      const posts = await newspostSchemadata
+        .aggregate([
+          { $match: { $and: [{ BlockPost: false }, { category: category }] } },
+          {
+            $lookup: {
+              from: "userdetails",
+              localField: "user",
+              foreignField: "_id",
+              as: "user",
+            },
+          },
+          { $unwind: "$user" },
+          {
+            $match: {
+              $or: [
+                { description: { $regex: search, $options: "i" } },
+                { "user.name": { $regex: search, $options: "i" } },
+              ],
+            },
+          },
+          { $sort: { _id: -1 } },
+
+          {
+            $lookup: {
+              from: "userdetails",
+              localField: "comments.user",
+              foreignField: "_id",
+              as: "commentUsers",
+            },
+          },
+          {
+            $addFields: {
+              comments: {
+                $map: {
+                  input: "$comments",
+                  as: "comment",
+                  in: {
+                    $mergeObjects: [
+                      "$$comment",
+                      {
+                        user: {
+                          $arrayElemAt: [
+                            "$commentUsers",
+                            {
+                              $indexOfArray: [
+                                "$comments.user",
+                                "$$comment.user",
+                              ],
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          },
+
+          { $unset: "commentUsers" },
+          {
+            $lookup: {
+              from: "userdetails",
+              localField: "likes",
+              foreignField: "_id",
+              as: "likes",
+            },
+          },
+        ])
+        .limit(Number(limit));
+
+      const totalPosts = await newspostSchemadata.countDocuments();
+
+      if (posts.length === 0) {
+        return { posts: [], currentPage: 0, totalPages: 0 };
+      }
+
+      return {
+        posts,
+        currentPage: page,
+        totalPages: Math.ceil(totalPosts / limit),
+      };
+    } catch (error) {
+      console.error("Error fetching paginated data:", error);
+      throw error;
+    }
+  }
+
   async getAllthedata(
     search: string,
     category: string,
@@ -636,6 +911,7 @@ class userRepository implements IUserRepository {
     totalPages: number;
   }> {
     const limit = 5;
+
     try {
       if (category === "Allpost") {
         const posts = await newspostSchemadata

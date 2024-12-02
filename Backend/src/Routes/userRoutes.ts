@@ -69,11 +69,19 @@ router.patch(
   AuthenticationMiddleware,
   userController.userLastseen.bind(userController)
 );
-router.get(
-  "/allposts",
-  AuthenticationMiddleware,
-  userController.getAllPost.bind(userController)
-);
+router.get( "/allposts", userController.getAllPost.bind(userController));
+
+
+router.get("/getupdate", userController.getupdateAllpost.bind(userController));
+
+
+
+
+
+
+
+
+
 router.delete(
   "/deletepost/:id",
   AuthenticationMiddleware,

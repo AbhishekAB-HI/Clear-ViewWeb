@@ -18,6 +18,7 @@ export const joinChatRoom = (chatId: string) => {
 
 export const sendMessage = (message: any) => {
   if (socket) socket.emit("new message", message);
+
 };
 
 export const sendfollow = (
@@ -74,11 +75,9 @@ export const LogoutActiveUsershere = (
  };
 
 export const setupOnMessageReceived = (callback: (message: any) => void) => {
-  if (!socket) {
-    console.error("Socket is not initialized. Call initilizeSocket first.");
-    return;
+  if (socket){
+ socket.on("message received", callback);
   }
-  socket.on("message received", callback);
 };
 
 

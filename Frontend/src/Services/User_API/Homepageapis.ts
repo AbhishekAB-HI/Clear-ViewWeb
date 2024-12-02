@@ -21,9 +21,27 @@ export const findFollownotifications = async(userId: string) => {
 
 
 export const findAllposthome = async (searchQuery:string, Category:string, currentpage:number) => {
- const { data } = await axiosClient.get(
-   `${API_USER_URL}/allposts?search=${searchQuery}&category=${Category}&page=${currentpage}`
+ const { data } = await axios.get(`${API_USER_URL}/allposts?search=${searchQuery}&category=${Category}&page=${currentpage}`
  );
+  if (data.message === "getAllpostdetails") {
+    return {
+      success: true,
+      allposts: data.data.posts,
+      totalPages: data.data.totalPages,
+    };
+  } else {
+    return { success: false };
+  }
+};
+
+export const findAllpostupdate = async (
+  searchQuery: string,
+  Category: string,
+  currentpage: number
+) => {
+  const { data } = await axios.get(
+    `${API_USER_URL}/getupdate?search=${searchQuery}&category=${Category}&page=${currentpage}`
+  );
   if (data.message === "getAllpostdetails") {
     return {
       success: true,

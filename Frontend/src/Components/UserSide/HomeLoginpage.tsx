@@ -3,7 +3,10 @@ import logoWeb from "../animations/Animation - 1724244656671.json";
 import { Link, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import { store } from "../../Redux-store/reduxstore";
-import { clearuserAccessTocken } from "../../Redux-store/redux-slice";
+import {
+  clearuserAccessTocken,
+  setUserAccessTocken,
+} from "../../Redux-store/redux-slice";
 import { FaBars, FaComment, FaPaperPlane, FaUserCircle } from "react-icons/fa";
 import { MdMoreVert } from "react-icons/md";
 import profileimg from "../images/Userlogo.png";
@@ -33,7 +36,9 @@ import moment from "moment";
 import {
   commentThePost,
   findAllposthome,
+  findAllpostupdate,
   getnotifications,
+  likeupdate,
   reportThePost,
   updatelastseen,
 } from "../../Services/User_API/Homepageapis";
@@ -73,10 +78,6 @@ const HomeLoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const observer = useRef<IntersectionObserver | null>(null);
 
-  const userDetails = useSelector(
-    (state: RootState) => state.accessTocken.userTocken
-  );
-
   const [showpostModal, setShowpostModal] = useState(false);
 
   moment.updateLocale("en", {
@@ -96,6 +97,18 @@ const HomeLoginPage = () => {
       yy: "%d years",
     },
   });
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tocken = urlParams.get("tocken");
+    if (tocken) {
+      dispatch(setUserAccessTocken(tocken));
+    }
+  }, []);
+
+  const userDetails = useSelector(
+    (state: RootState) => state.accessTocken.userTocken
+  );
 
   const formatTime = (timestamp: string): string => {
     const postTime = moment(timestamp);
@@ -118,7 +131,7 @@ const HomeLoginPage = () => {
       if (response.success) {
         setSaveAllNotifications(response.notifications);
       } else {
-        toast.error("All notifications Failed");
+        setSaveAllNotifications(response.notifications);
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -153,7 +166,7 @@ const HomeLoginPage = () => {
       } else {
       }
     });
-  }, []);
+  }, [userDetails]);
 
   const logoutUser = (userId: string) => {
     socket.emit("logout", userId);
@@ -174,7 +187,7 @@ const HomeLoginPage = () => {
       toast.success("new post uploaded");
       setSavenewpost(postdetails);
     });
-  }, []);
+  }, [userDetails]);
 
   // STATE_MANAGEMENT===============================================================================================================================================================
 
@@ -193,10 +206,6 @@ const HomeLoginPage = () => {
   // STATE_MANAGEMENT===============================================================================================================================================================
 
   // API ====================================================================================================================================================
-
-  useEffect(() => {
-    getNotifications();
-  }, []);
 
   useEffect(() => {
     const getUserId = async () => {
@@ -244,6 +253,7 @@ const HomeLoginPage = () => {
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
           setPage((prevPage) => prevPage + 1);
+          debouncedGetAllPost(page);
         }
       });
 
@@ -263,11 +273,10 @@ const HomeLoginPage = () => {
         const response = await findAllposthome(
           searchQuery,
           Category,
-          currentpage
+          currentpage + 1
         );
-
         if (response.success) {
-          setFilteredPost((prev) => [...prev,...response.allposts]);
+          setFilteredPost((prev) => [...prev, ...response.allposts]);
           const totalPages = response.totalPages || 0;
           setHasMore(currentpage < totalPages);
         } else {
@@ -302,6 +311,50 @@ const HomeLoginPage = () => {
     [searchQuery, Category]
   );
 
+  const getAllpostupdate = async (currentpage: number) => {
+    setIsLoading(true);
+    try {
+      const response = await findAllpostupdate(
+        searchQuery,
+        Category,
+        currentpage
+      );
+      if (response.success) {
+        setFilteredPost([...response.allposts]);
+        const totalPages = response.totalPages || 0;
+        setHasMore(currentpage < totalPages);
+      } else {
+        toast.error("Failed to retrieve post details.");
+      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        if (!error.response) {
+          toast.error("Network error. Please check your internet connection.");
+        } else {
+          const status = error.response.status;
+          if (status === 404) {
+            toast.error("Posts not found.");
+          } else if (status === 500) {
+            toast.error("Server error. Please try again later.");
+          } else {
+            toast.error("Something went wrong.");
+          }
+        }
+      } else if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unexpected error occurred.");
+      }
+      console.log("Error fetching posts:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const updateHomepage = (page: number) => {
+    getAllpostupdate(page);
+  };
+
   const findAllthepost = async (currentpage: number) => {
     setIsLoading(true);
     try {
@@ -311,7 +364,7 @@ const HomeLoginPage = () => {
         currentpage
       );
       if (response.success) {
-        setFilteredPost([...response.allposts]);
+        setFilteredPost(() => [...response.allposts]);
         const totalPages = response.totalPages || 0;
         setHasMore(currentpage < totalPages);
       } else {
@@ -353,8 +406,8 @@ const HomeLoginPage = () => {
   }, [searchQuery]);
 
   useEffect(() => {
-    debouncedGetAllPost(page);
-  }, [page]);
+    findAllthepost(page);
+  }, []);
 
   const handleAllPost = (value: string) => {
     setCategory(value);
@@ -392,7 +445,6 @@ const HomeLoginPage = () => {
       setActiveUsers(users);
     });
   };
-  console.log(activeUsers);
   const handleLogout = async () => {
     try {
       logoutUser(saveid);
@@ -405,7 +457,6 @@ const HomeLoginPage = () => {
         toast.error("Logout failed");
       }
       dispatch(clearuserAccessTocken());
-      localStorage.removeItem("usertocken");
     } catch (error) {
       console.log(error);
     }
@@ -511,7 +562,7 @@ const HomeLoginPage = () => {
       }
       const response = await commentThePost(postId, userId, comment);
       if (response.success) {
-        debouncedGetAllPost(page);
+        getAllpostupdate(page);
         setComment("");
         setShowEmojiPicker(false);
       } else {
@@ -552,12 +603,10 @@ const HomeLoginPage = () => {
 
   const handleLike = async (postId: string, userId: string) => {
     try {
-      // const response = await likeupdate(postId, userId);
-      const { data } = await axiosClient.patch(`${API_USER_URL}/likepost`, {postId,userId});
-      if (data.message === "Post liked succesfully") {
-        debouncedGetAllPost(page);
-        sendLikePost(data.getupdate);
-        console.log(data.getupdate, "22222222222222222");
+      const response = await likeupdate(postId, userId);
+      if (response.success) {
+        sendLikePost(response.update);
+        getAllpostupdate(page);
       } else {
         toast.error("Post liked Failed");
       }
@@ -1100,7 +1149,7 @@ const HomeLoginPage = () => {
                           )}
 
                           <RenderReplies
-                            UpdateLikepost={debouncedGetAllPost}
+                            UpdateLikepost={() => updateHomepage(page)}
                             post={post}
                             parentCommentId={comment as string}
                             saveid={saveid}
@@ -1347,7 +1396,7 @@ const HomeLoginPage = () => {
                           )}
 
                           <RenderReplies
-                            UpdateLikepost={debouncedGetAllPost}
+                            UpdateLikepost={() => updateHomepage(page)}
                             post={post}
                             parentCommentId={comment as string}
                             saveid={saveid}

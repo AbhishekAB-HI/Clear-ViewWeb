@@ -127,20 +127,24 @@ io.on("connection", (socket: Socket) => {
     io.to(userId).emit("receiveNotification", notification);
   });
 
-  socket.on("typing", (room: string) => socket.in(room).emit("typing"));
+  socket.on("typing", (room: string) =>{
+       socket.in(room).emit("typing")
+  })
+  
   socket.on("stop typing", (room: string) =>
-    socket.in(room).emit("stop typing")
+    console.log(room,"22222222222222")
+  
+    // socket.in(room).emit("stop typing")
   );
 
   socket.on("new message", (newMessageReceived: NewMessage) => {
+    console.log(newMessageReceived,'11111111111111111111111111111111');
     var chat = newMessageReceived.chat;
     if (!chat.users) {
       return console.log("chat.user not defined");
     }
     chat.users.forEach((user: string) => {
       if (user === newMessageReceived.sender._id) return;
-      io.emit("hello", "hai");
-
       socket.in(user).emit("message received", newMessageReceived);
       socket.in(user).emit("notification received", newMessageReceived);
     });
