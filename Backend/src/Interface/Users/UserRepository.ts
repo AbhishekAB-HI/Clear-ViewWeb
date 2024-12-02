@@ -63,6 +63,16 @@ export interface IUserRepository {
   checkingmail(email: string | undefined): Promise<IUser | undefined | null>;
   getUserProfile(userId: unknown): Promise<IUser | undefined | null>;
   getTheUser(userId: unknown): Promise<IUser | undefined>;
+
+  getAllUpdatepost(
+    search: string,
+    category: string,
+    page: string | number
+  ): Promise<{
+    posts: Posts[];
+    currentPage: string | number;
+    totalPages: number;
+  }>;
   getAllthedata(
     search: string,
     category: string,

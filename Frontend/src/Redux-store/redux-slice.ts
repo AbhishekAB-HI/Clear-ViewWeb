@@ -31,20 +31,27 @@ type userstate = {
   userTocken: string;
   userDetils: string;
   AdminTocken: string;
+  SelectedChat: any;
   userRefreshTocken: string;
   chats: Chats[];
-  SelectedChat: Chats[];
   Notification: Chats[];
 };
 
 const stateinfo: userstate = {
   userTocken: localStorage.getItem("usertocken") || "",
+  SelectedChat: (() => {
+    try {
+      return JSON.parse(localStorage.getItem("savedata") || "{}");
+    } catch (error) {
+      console.error("Error parsing savedata from localStorage:", error);
+      return {};
+    }
+  })(),
   userRefreshTocken: localStorage.getItem("userRefreshTocken") || "",
   userDetils: localStorage.getItem("userdetails") || "",
   AdminTocken: localStorage.getItem("admintocken") || "",
-  chats: [], 
-  SelectedChat: [],
-  Notification:[]
+  chats: [],
+  Notification: [],
 };
 
 
@@ -64,6 +71,7 @@ const stateinfo: userstate = {
      },
      clearuserAccessTocken: (state) => {
        state.userTocken = "";
+       state.userRefreshTocken = "";
        localStorage.removeItem("usertocken");
      },
      setUserDatails: (state, action) => {
@@ -76,19 +84,22 @@ const stateinfo: userstate = {
        state.AdminTocken = Tocken;
        localStorage.setItem("admintocken", Tocken);
      },
+     setSelectedChat: (state, action) => {
+       const chatdata = action.payload;
+       state.SelectedChat = chatdata;
+       localStorage.setItem("savedata", JSON.stringify(chatdata));
+     },
      clearAdminAccessTocken: (state) => {
        state.AdminTocken = "";
        localStorage.removeItem("admintocken");
      },
      setChats: (state, action) => {
-       state.chats = action.payload; 
+       state.chats = action.payload;
      },
-     setSelectedChat: (state, action) => {
-       state.SelectedChat = action.payload; 
+  
+     setNotifications: (state, action) => {
+       state.Notification = action.payload;
      },
-     setNotifications:(state,action)=>{
-       state.Notification= action.payload
-     }
    },
  });
 

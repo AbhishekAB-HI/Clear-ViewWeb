@@ -435,6 +435,25 @@ class UserController {
     }
   }
 
+  async getupdateAllpost(req: Request, res: Response) {
+    try {
+      const { search, category, page } = req.query as unknown as {
+        search?: string;
+        category?: string;
+        page: string | number;
+      };
+
+      const { posts, currentPage, totalPages } =
+        await this.userService.getthepostupdations(search, category, page);
+      res.status(200).json({
+        message: "getAllpostdetails",
+        data: { posts, currentPage, totalPages },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async getAllPost(req: Request, res: Response) {
     try {
       const { search, category, page } = req.query as unknown as {

@@ -12,6 +12,7 @@ import Lottie from "lottie-react";
 import logoWeb from "../animations/Animation - 1724244656671.json";
 import { API_USER_URL } from "../Constants/Constants";
 import { FaSpinner } from "react-icons/fa";
+import { googleSignIn } from "../../Services/User_API/Homepageapis";
 const Registerpage: React.FC = () => {
   
   const navigate = useNavigate();
@@ -130,7 +131,10 @@ const Registerpage: React.FC = () => {
           </div>
 
           <div className="flex flex-col mx-auto w-full md:w-3/4 ">
-            <button className="flex items-center justify-center bg-white text-black py-2 rounded text-lg font-semibold space-x-2">
+            <button
+              onClick={googleSignIn}
+              className="flex items-center justify-center bg-white text-black py-2 rounded text-lg font-semibold space-x-2"
+            >
               <FcGoogle className="text-2xl" />
               <span style={{ fontFamily: "Roboto, sans-serif" }}>
                 Sign up with Google
@@ -206,7 +210,6 @@ const Registerpage: React.FC = () => {
                     component="div"
                     className="text-red-500 mb-2"
                   />
-
 
                   <button
                     type="submit"

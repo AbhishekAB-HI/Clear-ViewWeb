@@ -65,6 +65,15 @@ export interface IUserServices {
   sendResendotp(email: string): Promise<void>;
   userIDget(userId: unknown): Promise<IUser | undefined>;
   getUserInfomations(userId: unknown): Promise<IUser | undefined>;
+  getthepostupdations(
+    search: string | string[] | any | any[],
+    category: string | string[] | any | any[],
+    page: string | number
+  ): Promise<{
+    posts: Posts[];
+    currentPage: string | number;
+    totalPages: number;
+  }>;
   getpostdetails(
     search: string | string[] | any | any[],
     category: string | string[] | any | any[],

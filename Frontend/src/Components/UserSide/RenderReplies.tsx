@@ -53,7 +53,7 @@ interface IPost {
 interface ChildComponentProps {
   post: any;
   saveid: string;
-  UpdateLikepost: (page: number) => void;
+  UpdateLikepost: () => void;
   parentCommentId: string;
   replyingTo: ReplyingToState | null;
   replyContent: string;
@@ -200,7 +200,7 @@ const CommentSection: React.FC<ChildComponentProps> = ({post,saveid,UpdateLikepo
       );
 
       if (data.message === "updated succefully") {
-        UpdateLikepost(1);
+        UpdateLikepost();
         setReplyContent("");
         setReplyingTo(null);
       }else{

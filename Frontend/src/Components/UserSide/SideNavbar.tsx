@@ -84,7 +84,7 @@ const SideNavBar = () => {
 
   const groupedNotifications = Array.isArray(SaveAllNotifications)
     ? SaveAllNotifications.reduce((acc: any, notification: any) => {
-        const senderId = notification.sender._id;
+        const senderId = notification?.sender?._id;
         if (!acc[senderId]) {
           acc[senderId] = { ...notification, count: 1 };
         } else {

@@ -20,7 +20,7 @@ router.get("/getgroupchats",AuthenticationMiddleware,chatcontroller.getgroupchat
 router.get("/getusers",AuthenticationMiddleware,chatcontroller.getAllUsers.bind(chatcontroller));
 router.get("/findallusers",AuthenticationMiddleware,chatcontroller.FindAllUser.bind(chatcontroller));
 router.get("/findnotifications",AuthenticationMiddleware,chatcontroller.findnotifications.bind(chatcontroller));
-router.get("/getnotifications",chatcontroller.getNotifications.bind(chatcontroller));
+router.get("/getnotifications",AuthenticationMiddleware,chatcontroller.getNotifications.bind(chatcontroller));
 router.get("/getfollownotify",AuthenticationMiddleware,chatcontroller.getFollownotifications.bind(chatcontroller));
 router.get("/getallpostnotify",AuthenticationMiddleware,chatcontroller.getallpostnotify.bind(chatcontroller));
 router.get("/groupusers",AuthenticationMiddleware,chatcontroller.findAllUsers.bind(chatcontroller))

@@ -33,6 +33,7 @@ export const authSuccess = async (req: AuthenticatedRequest, res: Response) => {
       const userPayload: userPayload = {
         id: userdetails._id as ObjectId,
       };
+      console.log(userPayload,'2222222222222222222222222222');
       const tocken = generateAccessToken(userPayload);
       console.log(tocken, "tocken back end");
 
@@ -46,7 +47,7 @@ export const authSuccess = async (req: AuthenticatedRequest, res: Response) => {
       const userinfo = new UserSchemadata({
         name: username,
         email: email,
-        password: 0,
+        password: 12345,
         isActive: false,
         isAdmin: false,
       });

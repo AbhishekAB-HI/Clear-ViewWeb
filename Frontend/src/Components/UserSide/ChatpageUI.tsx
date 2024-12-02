@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import { store } from "../../Redux-store/reduxstore";
 import axios from "axios";
 import data from "@emoji-mart/data";
-import { Socket } from "socket.io-client";
+import io, { Socket } from "socket.io-client";
 import Picker from "@emoji-mart/react";
 import { IoSend } from "react-icons/io5";
 import toast from "react-hot-toast";
@@ -23,13 +23,7 @@ import Swal from "sweetalert2";
 import Navbar2 from "../UserSide/Navbar2";
 import { ActiveUsersType, userInfo } from "../Interfaces/Interface";
 import SideNavBar from "./SideNavbar";
-import {
-  ActiveUsershere,
-  initilizeSocket,
-  joinChatRoom,
-  sendMessage,
-  setupOnMessageReceived,
-} from "../UserSide/GlobalSocket/CreateSocket";
+import {ActiveUsershere,initilizeSocket,joinChatRoom,sendMessage,setupOnMessageReceived,} from "../UserSide/GlobalSocket/CreateSocket";
 import { setSelectedChat } from "../../Redux-store/redux-slice";
 import {
   chechuserblocking,
@@ -40,11 +34,13 @@ import {
 } from "../../Services/User_API/Chatpage";
 let socket: Socket;
 let selectedChatCompare: any;
+const ENDPOINT = "http://localhost:3000";
 const ChatPage: React.FC<{}> = () => {
+
   const [messages, setMessages] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState<string>("");
-  const { chatId, dataId } = useParams<{ chatId: any; dataId: any }>();
+  const {chatId, dataId } = useParams<{ chatId: any; dataId: any }>();
   const [postImages, setPostImages] = useState<File[]>([]);
   const [postVideos, setPostVideos] = useState<File[]>([]);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -58,25 +54,38 @@ const ChatPage: React.FC<{}> = () => {
   const [activeUsers, setActiveUsers] = useState<ActiveUsersType[]>([]);
   const [isOnline, setIsOnline] = useState(false);
 
+    const userToken = useSelector(
+      (state: RootState) => state.accessTocken.userTocken
+    );
+
+
+
+
+useEffect(()=>{
+  socket = io(ENDPOINT);
+  socket.emit("setup", userToken);
+ ActiveUsershere(setActiveUsers);
+  },[])
+
   useEffect(() => {
     const socketInstance = initilizeSocket(userToken);
-    ActiveUsershere(setActiveUsers);
     const onMessageReceived = (newMessageReceived: any) => {
-      if (
-        !selectedChatCompare ||
-        selectedChatCompare._id !== newMessageReceived.chat._id
+      if (!selectedChatCompare ||selectedChatCompare._id == newMessageReceived.chat._id
       ) {
         setMessages((prevMessages) => [...prevMessages, newMessageReceived]);
         scrollToBottom();
       } else {
+         
       }
     };
-
-    setupOnMessageReceived(onMessageReceived);
+  setupOnMessageReceived(onMessageReceived);
     return () => {
       socketInstance.off("message received");
     };
   }, []);
+
+
+
 
   useEffect(() => {
     const GetUserId = async () => {
@@ -161,10 +170,6 @@ const ChatPage: React.FC<{}> = () => {
 
   const selectedChat = useSelector(
     (state: RootState) => state.accessTocken.SelectedChat
-  );
-
-  const userToken = useSelector(
-    (state: RootState) => state.accessTocken.userTocken
   );
 
   const scrollToBottom = () => {
@@ -371,8 +376,8 @@ const ChatPage: React.FC<{}> = () => {
   };
 
   const typingHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log("33333333333333333333333333333")
     setNewMessage(e.target.value);
-
     if (!typing) {
       setTyping(true);
       // handleTyping(dataId);
