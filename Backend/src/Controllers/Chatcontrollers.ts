@@ -296,7 +296,7 @@ class ChatController {
         return res
           .status(401)
           .json({ message: "Unauthorized: Token is missing" });
-      }
+      } 
       const decoded = jwt.verify(
         token,
         process.env.ACCESS_TOKEN_PRIVATE_KEY || ACCESS_TOKEN

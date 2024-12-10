@@ -50,7 +50,7 @@ app.use(
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin:"https://clear-view-1nz4.vercel.app/",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
@@ -58,7 +58,10 @@ app.use(
 );
 
 app.options("*", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://clear-view-1nz4.vercel.app/"
+  );
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, PATCH, DELETE, OPTIONS"
@@ -89,7 +92,7 @@ const io = require("socket.io")(server, {
   pingTimeout: 60000,
   //  The server is waiting for the connection 60 sec in not connectc it will be disconnect
   cors: {
-    origin: "http://localhost:5173",
+    origin: "https://clear-view-1nz4.vercel.app/",
   },
 });
 
@@ -108,7 +111,6 @@ io.on("connection", (socket: Socket) => {
     if (!activeUsers.some((user) => user.userId === userId)) {
       activeUsers.push({ userId: userId, socketId: socket.id });
     }
-    console.log("11111111111111111111111111111111111111111");
     io.emit("get-users", activeUsers);
   });
 
@@ -138,7 +140,6 @@ io.on("connection", (socket: Socket) => {
   );
 
   socket.on("new message", (newMessageReceived: NewMessage) => {
-    console.log(newMessageReceived,'11111111111111111111111111111111');
     var chat = newMessageReceived.chat;
     if (!chat.users) {
       return console.log("chat.user not defined");

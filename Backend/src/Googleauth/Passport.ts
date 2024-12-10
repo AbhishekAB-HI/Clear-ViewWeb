@@ -24,7 +24,7 @@ passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.CLIENT_ID as string, 
-      clientSecret: process.env.CLIENT_SECRET as string, // Your Credentials here.
+      clientSecret: process.env.CLIENT_SECRET as string,
       callbackURL: "http://localhost:3000/auth/callback",
       passReqToCallback: true,
     },
