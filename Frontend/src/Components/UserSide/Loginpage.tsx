@@ -8,7 +8,7 @@ import * as Yup from "yup";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import logoWeb from "../animations/Animation - 1724244656671.json";
+import logoWeb from "../Animations/Animation - 1724244656671.json";
 import {
   setUserAccessTocken,
   setUserRefreshtocken,
