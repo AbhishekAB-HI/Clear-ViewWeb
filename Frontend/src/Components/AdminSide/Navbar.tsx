@@ -1,6 +1,6 @@
 
 import Lottie from "lottie-react";
-import logoWeb from "../animations/Animation - 1724244656671.json";
+import logoWeb from "../Animations/Animation - 1724244656671.json";
 const Navbar = () => {
   return (
     <nav className="bg-black text-white px-4 py-3 shadow-md fixed w-full top-0 left-0 z-50">

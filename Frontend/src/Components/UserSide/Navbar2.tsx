@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { store } from "../../Redux-store/reduxstore";
 import Lottie from "lottie-react";
-import logoWeb from "../animations/Animation - 1724244656671.json";
+import logoWeb from "../Animations/Animation - 1724244656671.json";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";

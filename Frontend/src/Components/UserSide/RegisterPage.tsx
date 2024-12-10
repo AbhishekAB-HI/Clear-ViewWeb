@@ -9,7 +9,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import Lottie from "lottie-react";
-import logoWeb from "../animations/Animation - 1724244656671.json";
+import logoWeb from "../Animations/Animation - 1724244656671.json";
 import { API_USER_URL } from "../Constants/Constants";
 import { FaSpinner } from "react-icons/fa";
 import { googleSignIn } from "../../Services/User_API/Homepageapis";
