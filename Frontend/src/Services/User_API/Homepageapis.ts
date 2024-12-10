@@ -186,7 +186,9 @@ interface loginData {
 
 
 export const loginPage = async (values: loginData) => {
-     const { data } = await axios.post(`${API_USER_URL}/login`, values);
+     const { data } = await axios.post(`${API_USER_URL}/login`, values ,{
+       withCredentials: true, 
+     });
      if(data.message === "user Login succesfully"){
         return {
           success: true,
