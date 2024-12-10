@@ -2,7 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination, Navigation } from "swiper/modules";
-import profileimg from "../images/Userlogo.png";
+import profileimg from "../Images/Userlogo.png";
 import Navbar2 from "../UserSide/Navbar2";
 import SideNavBar from "../UserSide/SideNavbar";
 import { useLocation, useNavigate } from "react-router-dom";

@@ -1,7 +1,7 @@
 import "tailwindcss/tailwind.css";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import newlogo from "../images/newslogo.jpg";
+import newlogo from "../Images/newslogo.jpg";
 import CryptoJS from "crypto-js";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";

@@ -1,5 +1,5 @@
 import "tailwindcss/tailwind.css";
-import newlogo from "../images/newslogo.jpg";
+import newlogo from "../Images/newslogo.jpg";
 import axios from "axios";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
