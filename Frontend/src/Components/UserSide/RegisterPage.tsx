@@ -1,6 +1,6 @@
 import "tailwindcss/tailwind.css";
 import { FcGoogle } from "react-icons/fc";
-import newlogo from "../images/newslogo.jpg";
+import newlogo from "../Images/newslogo.jpg";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
@@ -14,7 +14,7 @@ import { API_USER_URL } from "../Constants/Constants";
 import { FaSpinner } from "react-icons/fa";
 import { googleSignIn } from "../../Services/User_API/Homepageapis";
 const Registerpage: React.FC = () => {
-  
+  console.log("done")
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -27,6 +27,7 @@ const Registerpage: React.FC = () => {
         "Name cannot be only spaces",
         (value) => !!value && value.trim().length > 0
       ),
+    
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
