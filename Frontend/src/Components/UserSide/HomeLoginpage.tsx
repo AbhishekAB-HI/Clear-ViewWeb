@@ -475,19 +475,22 @@ const HomeLoginPage = () => {
       "5": "Other (please specify)",
     };
 
-    const { value: reasonKey } = await Swal.fire({
-      title: "Report Post",
-      input: "select",
-      inputOptions: reportReasons,
-      inputPlaceholder: "Select a reason",
-      showCancelButton: true,
-      confirmButtonText: "Next",
-      inputValidator: (value) => {
-        if (!value) {
-          return "Please select a reason!";
-        }
-      },
-    });
+  const { value: reasonKey } = await Swal.fire({
+    title: "Report Post",
+    input: "select",
+    inputOptions: reportReasons,
+    inputPlaceholder: "Select a reason",
+    showCancelButton: true,
+    confirmButtonText: "Next",
+    inputValidator: (value) => {
+      if (!value) {
+        return "Please select a reason!"; // Return an error message string
+      }
+      return null; // Return null if no error
+    },
+  });
+
+
 
     if (reasonKey) {
       let text = reportReasons[reasonKey as keyof typeof reportReasons];
