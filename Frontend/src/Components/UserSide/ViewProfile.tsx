@@ -26,7 +26,7 @@ import { setChats, setSelectedChat } from "../../Redux-store/redux-slice";
 import { useDispatch, useSelector } from "react-redux";
 import { store } from "../../Redux-store/reduxstore";
 import io, { Socket } from "socket.io-client";
-const ENDPOINT = "http://localhost:3000";
+const ENDPOINT = "https://backend.trendhub.cloud";
 let socket: Socket;
 const ViewProfilePage = () => {
   const location = useLocation();

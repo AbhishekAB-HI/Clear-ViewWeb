@@ -31,7 +31,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import debounce from "lodash.debounce";
 import { Heart, Users } from "lucide-react";
 import io, { Socket } from "socket.io-client";
-import axiosClient from "../../Services/Axiosinterseptor";
 import moment from "moment";
 import {
   commentThePost,
@@ -43,10 +42,8 @@ import {
   updatelastseen,
 } from "../../Services/User_API/Homepageapis";
 import { getuserinfomations } from "../../Services/User_API/FollowerApi";
-import { API_USER_URL } from "../Constants/Constants";
-
 let selectedChatCompare: any;
-const ENDPOINT = "http://localhost:3000";
+const ENDPOINT = "https://backend.trendhub.cloud";
 let socket: Socket;
 const HomeLoginPage = () => {
   type RootState = ReturnType<typeof store.getState>;

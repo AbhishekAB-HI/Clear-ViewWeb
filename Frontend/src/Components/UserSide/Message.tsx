@@ -17,7 +17,7 @@ import SideNavBar from "../UserSide/SideNavbar";
 import { MessageCircle, PlusCircle, Search, Users, X } from "lucide-react";
 import io, { Socket } from "socket.io-client";
 import axiosClient from "../../Services/Axiosinterseptor";
-const ENDPOINT = "http://localhost:3000";
+const ENDPOINT = "https://backend.trendhub.cloud";
 let socket: Socket;
 let selectedChatCompare: any;
 const MessagePage = () => {

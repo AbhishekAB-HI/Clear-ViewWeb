@@ -12,7 +12,8 @@ import { API_USER_URL } from "../Constants/Constants";
 import toast from "react-hot-toast";
 import io, { Socket } from "socket.io-client";
 import axiosClient from "../../Services/Axiosinterseptor";
-const ENDPOINT = "http://localhost:3000";
+const ENDPOINT = "https://backend.trendhub.cloud";
+
 
 let socket: Socket;
 const Navbar2 = () => {

@@ -23,9 +23,9 @@ passport.deserializeUser(
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.CLIENT_ID as string, 
+      clientID: process.env.CLIENT_ID as string,
       clientSecret: process.env.CLIENT_SECRET as string,
-      callbackURL: "http://localhost:3000/auth/callback",
+      callbackURL: "https://backend.trendhub.cloud/auth/callback",
       passReqToCallback: true,
     },
     function (
