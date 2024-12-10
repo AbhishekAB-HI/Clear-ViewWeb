@@ -1,6 +1,6 @@
 import "tailwindcss/tailwind.css";
 import { FcGoogle } from "react-icons/fc";
-import newlogo from "../images/newslogo.jpg";
+import newlogo from "../Images/newslogo.jpg";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
