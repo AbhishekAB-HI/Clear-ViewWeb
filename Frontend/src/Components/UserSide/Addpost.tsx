@@ -41,6 +41,8 @@ const CreatePostModal = ({
     (state: RootState) => state.accessTocken.userTocken
   );
 
+  console.log("started")
+
   useEffect(() => {
     socket = io(ENDPOINT);
     if (userDetails) {
