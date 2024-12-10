@@ -34,7 +34,7 @@ import {
 } from "../../Services/User_API/Chatpage";
 let socket: Socket;
 let selectedChatCompare: any;
-const ENDPOINT = "http://localhost:3000";
+const ENDPOINT = "https://backend.trendhub.cloud";
 const ChatPage: React.FC<{}> = () => {
 
   const [messages, setMessages] = useState<any[]>([]);

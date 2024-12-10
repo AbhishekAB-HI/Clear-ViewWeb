@@ -41,7 +41,7 @@ import SideNavBar2 from "../UserSide/Sidebar2";
 import { sendfollow } from "../UserSide/GlobalSocket/CreateSocket";
 import io, { Socket } from "socket.io-client";
 import axiosClient from "../../Services/Axiosinterseptor";
-const ENDPOINT = "http://localhost:3000";
+const ENDPOINT = "https://backend.trendhub.cloud";
 let socket: Socket;
 const HomeProfilepage = () => {
   type RootState = ReturnType<typeof store.getState>;

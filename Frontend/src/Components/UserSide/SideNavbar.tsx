@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import { IAllNotification, Notification } from "../Interfaces/Interface";
 import io, { Socket } from "socket.io-client";
 import axiosClient from "../../Services/Axiosinterseptor";
-const ENDPOINT = "http://localhost:3000";
+const ENDPOINT = "https://backend.trendhub.cloud";
 let socket: Socket;
 let selectedChatCompare: any;
 const SideNavBar = () => {

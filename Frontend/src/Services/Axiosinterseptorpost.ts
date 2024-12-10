@@ -9,7 +9,7 @@ import { CONTENT_TYPE_MULTER } from "../Components/Constants/Constants";
 
 // ClientNew;
 const axiosClientPost = axios.create({
-  baseURL: "http://localhost:5173",
+  baseURL: "https://clear-view-1nz4.vercel.app/",
   headers: {
     "Content-Type": CONTENT_TYPE_MULTER,
   },
@@ -50,7 +50,7 @@ axiosClientPost.interceptors.response.use(
 
         if (refreshToken) {
           const { data } = await axios.post(
-            "http://localhost:3000/auth/refreshtoken",
+             "https://backend.trendhub.cloud/auth/refreshtoken",
             { refreshToken }
           );
 

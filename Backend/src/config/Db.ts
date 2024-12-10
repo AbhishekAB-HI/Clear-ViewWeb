@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const databaseURL: string = "mongodb://127.0.0.1:27017/newsapp";
+const databaseURL: string ="mongodb+srv://4270abhishek:LUbAMBxA0San36uw@cluster0.oylin.mongodb.net/newsapp";
 
 const connectDB = async () => {
   try {
