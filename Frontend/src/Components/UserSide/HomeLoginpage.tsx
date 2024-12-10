@@ -9,7 +9,7 @@ import {
 } from "../../Redux-store/redux-slice";
 import { FaBars, FaComment, FaPaperPlane, FaUserCircle } from "react-icons/fa";
 import { MdMoreVert } from "react-icons/md";
-import profileimg from "../images/Userlogo.png";
+import profileimg from "../Images/Userlogo.png";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import toast from "react-hot-toast";
