@@ -17,7 +17,7 @@ const Registerpage: React.FC = () => {
   console.log("done")
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-
+console.log("1111111")
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .trim()
