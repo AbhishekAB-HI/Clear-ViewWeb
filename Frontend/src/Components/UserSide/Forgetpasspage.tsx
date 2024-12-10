@@ -6,7 +6,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
 import Lottie from "lottie-react";
-import logoWeb from "../animations/Animation - 1724244656671.json";
+import logoWeb from "../Animations/Animation - 1724244656671.json";
 import toast from "react-hot-toast";
 import { forgetpassword } from "../../Services/User_API/Forgotsideapis";
 const ForgetPassPage: React.FC = () => {
@@ -32,6 +32,7 @@ const ForgetPassPage: React.FC = () => {
       .oneOf([Yup.ref("password")], "Passwords must match")
       .required("Confirm Password is required"),
   });
+  console.log("stating done")
 
   const handlesubmit = async (values: {
     password: string;
