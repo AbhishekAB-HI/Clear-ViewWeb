@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import axios from "axios";
 import toast from "react-hot-toast";
-import profileimg from "../images/Userlogo.png";
+import profileimg from "../Images/Userlogo.png";
 import EditProfileModal from "../UserSide/EditProfile";
 import Postpage from "../UserSide/Addpost";
 import EditPostModal from "../UserSide/EditpostPage";
