@@ -16,7 +16,7 @@ const Forgetpassword: React.FC = () => {
       .email("Invalid email address")
       .required("Email is required"),
   });
-
+  console.log("started password");
   const handleSubmit = async (values: { email: string }) => {
 
   const emaildata = { email: values.email };
