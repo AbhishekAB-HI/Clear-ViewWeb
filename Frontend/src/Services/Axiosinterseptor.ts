@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 
 // ClientNew;
 const axiosClient = axios.create({
-  baseURL: "https://clear-view-1nz4.vercel.app/",
+  baseURL: "https://clear-view-web.vercel.app",
   headers: {
     "Content-Type": "application/json",
   },

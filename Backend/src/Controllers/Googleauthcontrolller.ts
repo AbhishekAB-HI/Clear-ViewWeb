@@ -33,10 +33,11 @@ export const authSuccess = async (req: AuthenticatedRequest, res: Response) => {
       const userPayload: userPayload = {
         id: userdetails._id as ObjectId,
       };
-      console.log(userPayload,'2222222222222222222222222222');
       const tocken = generateAccessToken(userPayload);
       console.log(tocken, "tocken back end");
-      res.redirect(`http://localhost:5173/homepage?tocken=${tocken}`);
+      res.redirect(
+        `https://clear-view-web.vercel.app/homepage?tocken=${tocken}`
+      );
     } else {
       const options = {
         new: true,
@@ -57,7 +58,9 @@ export const authSuccess = async (req: AuthenticatedRequest, res: Response) => {
         };
         const tocken = generateAccessToken(userPayload);
         console.log(tocken, "tocken back end");
-        res.redirect(`http://localhost:5173/homepage?tocken=${tocken}`);
+        res.redirect(
+          `https://clear-view-web.vercel.app/homepage?tocken=${tocken}`
+        );
       }
     }
   } catch (error) {
@@ -66,5 +69,5 @@ export const authSuccess = async (req: AuthenticatedRequest, res: Response) => {
 };
 
 export const authFailure = (req: Request, res: Response) => {
-  res.redirect(`http://localhost:5173/login`);
+  res.redirect(`https://clear-view-web.vercel.app/login`);
 };
