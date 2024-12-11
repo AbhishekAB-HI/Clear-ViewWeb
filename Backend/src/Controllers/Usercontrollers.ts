@@ -90,6 +90,7 @@ class UserController {
   async userLogin(req: Request, res: Response): Promise<void> {
     try {
       const userData = req.body;
+      console.log(userData,'find datas');
       let userdata = await this.userService.verifyUser(userData);
       if (userdata) {
         let refreshtok = userdata.refreshToken;

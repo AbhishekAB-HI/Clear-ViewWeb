@@ -57,27 +57,25 @@ app.use(
   })
 );
 
-console.log("server1")
-
-app.options("*", cors());
 
 
-// app.options("*", (req, res) => {
-//   res.setHeader(
-//     "Access-Control-Allow-Origin",
-//     "https://clear-view-web.vercel.app/"
-//   );
-//   res.setHeader(
-//     "Access-Control-Allow-Methods",
-//     "GET, POST, PUT, PATCH, DELETE, OPTIONS"
-//   );
-//   res.setHeader(
-//     "Access-Control-Allow-Headers",
-//     "Content-Type, Authorization, refresh-token"
-//   );
-//   res.setHeader("Access-Control-Allow-Credentials", "true");
-//   res.sendStatus(204);
-// });
+
+app.options("*", (req, res) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://clear-view-web.vercel.app"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, refresh-token"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.sendStatus(204);
+});
 
 app.use(passportauth.initialize());
 app.use(passportauth.session());

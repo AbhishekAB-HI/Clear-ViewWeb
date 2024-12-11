@@ -25,7 +25,7 @@ passport.use(
     {
       clientID: process.env.CLIENT_ID as string,
       clientSecret: process.env.CLIENT_SECRET as string,
-      callbackURL: "https://backend.trendhub.cloud/auth/callback",
+      callbackURL: "http://localhost:3000/auth/callback",
       passReqToCallback: true,
     },
     function (
