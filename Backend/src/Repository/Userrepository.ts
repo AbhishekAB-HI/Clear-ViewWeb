@@ -141,7 +141,9 @@ class userRepository implements IUserRepository {
   async checkByEmail(userdata: any): Promise<IUser | undefined> {
     try {
       let email = userdata.email;
+      console.log(email,'11111111111111111111')
       let userDetail = await UserSchemadata.findOne({ email }).exec();
+        console.log(userDetail, "11111111111111111111");
       if (!userDetail) {
         throw new Error("No user found");
       }
