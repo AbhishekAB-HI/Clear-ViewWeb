@@ -57,7 +57,7 @@ export const authSuccess = async (req: AuthenticatedRequest, res: Response) => {
           id: saveuser._id as ObjectId,
         };
         const tocken = generateAccessToken(userPayload);
-        console.log(tocken, "tocken back end");
+        console.log(tocken, "tocken back end"); 
         res.redirect(
           `https://clear-view-web.vercel.app/homepage?tocken=${tocken}`
         );
