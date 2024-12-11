@@ -50,33 +50,34 @@ app.use(
 
 app.use(
   cors({
-    origin: [
-      "https://clear-view-web.vercel.app",
-      "https://clear-view-1nz4.vercel.app",
-    ],
+    origin: "https://clear-view-web.vercel.app",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
+
 console.log("server1")
 
-app.options("*", (req, res) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://clear-view-web.vercel.app/"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, PATCH, DELETE, OPTIONS"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, refresh-token"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.sendStatus(204);
-});
+app.options("*", cors());
+
+
+// app.options("*", (req, res) => {
+//   res.setHeader(
+//     "Access-Control-Allow-Origin",
+//     "https://clear-view-web.vercel.app/"
+//   );
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+//   );
+//   res.setHeader(
+//     "Access-Control-Allow-Headers",
+//     "Content-Type, Authorization, refresh-token"
+//   );
+//   res.setHeader("Access-Control-Allow-Credentials", "true");
+//   res.sendStatus(204);
+// });
 
 app.use(passportauth.initialize());
 app.use(passportauth.session());
@@ -96,7 +97,7 @@ const io = require("socket.io")(server, {
   pingTimeout: 60000,
   //  The server is waiting for the connection 60 sec in not connectc it will be disconnect
   cors: {
-    origin: "https://clear-view-web.vercel.app/",
+    origin: "https://clear-view-web.vercel.app",
   },
 });
 
