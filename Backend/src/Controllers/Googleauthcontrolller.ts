@@ -37,7 +37,7 @@ export const authSuccess = async (req: AuthenticatedRequest, res: Response) => {
       const tocken = generateAccessToken(userPayload);
       console.log(tocken, "tocken back end");
       res.redirect(
-        `https://clear-view-web.vercel.app//homepage?tocken=${tocken}`
+        `https://clear-view-web.vercel.app/homepage?tocken=${tocken}`
       );
     } else {
       const options = {
@@ -60,7 +60,7 @@ export const authSuccess = async (req: AuthenticatedRequest, res: Response) => {
         const tocken = generateAccessToken(userPayload);
         console.log(tocken, "tocken back end");
         res.redirect(
-          `https://clear-view-web.vercel.app//homepage?tocken=${tocken}`
+          `https://clear-view-web.vercel.app/homepage?tocken=${tocken}`
         );
       }
     }
@@ -70,5 +70,5 @@ export const authSuccess = async (req: AuthenticatedRequest, res: Response) => {
 };
 
 export const authFailure = (req: Request, res: Response) => {
-  res.redirect(`https://clear-view-web.vercel.app//login`);
+  res.redirect(`https://clear-view-web.vercel.app/login`);
 };
