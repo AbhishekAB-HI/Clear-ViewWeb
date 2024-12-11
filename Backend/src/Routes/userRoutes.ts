@@ -75,13 +75,6 @@ router.get( "/allposts", userController.getAllPost.bind(userController));
 router.get("/getupdate", userController.getupdateAllpost.bind(userController));
 
 
-
-
-
-
-
-
-
 router.delete(
   "/deletepost/:id",
   AuthenticationMiddleware,

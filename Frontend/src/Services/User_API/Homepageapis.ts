@@ -181,14 +181,12 @@ interface loginData {
 }
 
  export const googleSignIn = async () => {
-    window.location.href = "http://localhost:3000/auth";
+    window.location.href = "https://backend.trendhub.cloud/auth";
   };
 
 
 export const loginPage = async (values: loginData) => {
-     const { data } = await axios.post(`${API_USER_URL}/login`, values ,{
-       withCredentials: true, 
-     });
+     const { data } = await axios.post(`${API_USER_URL}/login`, values);
      if(data.message === "user Login succesfully"){
         return {
           success: true,
