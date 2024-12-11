@@ -19,7 +19,7 @@ passport.deserializeUser(
     done(null, user);
   }
 );
-
+console.log("123 start")
 passport.use(
   new GoogleStrategy(
     {
