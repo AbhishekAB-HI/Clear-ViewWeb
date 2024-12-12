@@ -9,7 +9,7 @@ import { CONTENT_TYPE_MULTER } from "../Components/Constants/Constants";
 
 // ClientNew;
 const axiosClientPost = axios.create({
-  baseURL: "https://clear-view-1nz4.vercel.app",
+  baseURL: "https://clear-view-web.vercel.app",
   headers: {
     "Content-Type": CONTENT_TYPE_MULTER,
   },
@@ -19,7 +19,6 @@ axiosClientPost.interceptors.request.use(
   (config) => {
     const state = store.getState();
     const accessToken = state.accessTocken.userTocken;
-    console.log(accessToken, "geteeeeeeeeeeeeeeee");
 
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
@@ -50,7 +49,7 @@ axiosClientPost.interceptors.response.use(
 
         if (refreshToken) {
           const { data } = await axios.post(
-             "https://backend.trendhub.cloud/auth/refreshtoken",
+            "https://backend.trendhub.cloud/auth/refreshtoken",
             { refreshToken }
           );
 

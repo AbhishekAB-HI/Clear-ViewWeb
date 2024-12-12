@@ -101,7 +101,7 @@ const Newsmanagement = () => {
       <div className="flex">
         <Adminsidebar />
         <main className="ml-60 w-3/5 flex-1 p-4">
-          <h1 className="flex justify-left mt-10 mb-10 text-white text-2xl">
+          <h1 className="flex justify-left mt-14 mb-10 text-white text-2xl">
             News  Management System
           </h1>
           <div className="flex justify-end mb-6">

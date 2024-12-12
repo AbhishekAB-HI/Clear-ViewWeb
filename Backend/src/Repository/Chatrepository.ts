@@ -684,6 +684,8 @@ class chatRepository implements IChatRepository {
         ])
         .exec();
 
+      
+
       const otherUserIds = chats.flatMap((chat) =>
         chat.users
           .map((user) => user._id as Types.ObjectId)
@@ -741,7 +743,6 @@ class chatRepository implements IChatRepository {
         lastMessageTime: chat.latestMessage?.createdAt || "N/A",
         userId: chat.groupAdmin,
       }));
-
       return {
         foundUsers,
         formattedChats,

@@ -31,10 +31,7 @@ router.get(
   "/getuserid/:usertocken",
   MessageController.getId.bind(MessageController)
 );
-router.get(
-  "/getuserimage/:chatid",
-  MessageController.getUserInfo.bind(MessageController)
-);
+router.get("/getuserimage/:chatid",MessageController.getUserInfo.bind(MessageController));
 router.patch(
   "/blockuser",
   AuthenticationMiddleware,

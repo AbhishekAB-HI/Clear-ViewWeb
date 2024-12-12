@@ -195,8 +195,7 @@ const CommentSection: React.FC<ChildComponentProps> = ({post,saveid,UpdateLikepo
           replyContent,
           userId,
           username,
-        },
-      
+        }
       );
 
       if (data.message === "updated succefully") {

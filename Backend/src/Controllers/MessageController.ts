@@ -95,6 +95,8 @@ class MessageControllers {
     try {
       const userInfo = req.params.chatid;
 
+      console.log(userInfo,'user id 222222222');
+
       const userinfo = await this.messageservise.getUserInfomation(userInfo);
       res.status(200).json({ message: "Get user id", userinfo });
     } catch (error) {

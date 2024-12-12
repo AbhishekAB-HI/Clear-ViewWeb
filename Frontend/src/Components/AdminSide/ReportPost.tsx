@@ -121,7 +121,7 @@ const Reportmanagement = () => {
         <Adminsidebar />
         <main className="ml-64 flex-1 p-4">
           <div className="container mx-auto">
-            <h1 className="flex justify-left mt-10 mb-10 text-white text-2xl">
+            <h1 className="flex justify-left mt-14 mb-10 text-white text-2xl">
               News Report Management System
             </h1>
             <Table

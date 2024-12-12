@@ -23,9 +23,7 @@ let selectedChatCompare: any;
 const MessagePage = () => {
   const [getAlluser, setgetAlluser] = useState<IUser[]>([]);
   const [saveAllmessage, setsaveAllmessage] = useState<FormattedChat[]>([]);
-  const [saveAllgroupmessage, setsaveAllgroupmessage] = useState<
-    FormattedChat[]
-  >([]);
+  const [saveAllgroupmessage, setsaveAllgroupmessage] = useState<FormattedChat[]>([]);
   const [saveAllUsers, setsaveAllUsers] = useState<IUser[]>([]);
   const [selectedUsers, setSelectedUsers] = useState<IUser[]>([]);
   const [groupName, setGroupName] = useState("");
@@ -36,9 +34,7 @@ const MessagePage = () => {
   const [saveTheUser, setsaveTheUser] = useState<FormattedChat[]>([]);
   const [activeUsers, setActiveUsers] = useState<ActiveUsersType[]>([]);
   const [findAllUsers, setfindAllUsers] = useState<IUser[]>([]);
-  const [SaveAllNotifications, setSaveAllNotifications] = useState<
-    Notification[]
-  >([]);
+  const [SaveAllNotifications, setSaveAllNotifications] = useState<Notification[]>([]);
   const [postsPerPage] = useState(2);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPosts, setTotalPosts] = useState(0);
@@ -92,40 +88,7 @@ const MessagePage = () => {
     }
   };
 
-  const getAllPost = async () => {
-    try {
-      const { data } = await axiosClient.get(
-        `${API_CHAT_URL}/allmessages?page=${currentPage}&limit=${postsPerPage}`
-      );
-      if (data.message === "other message get here") {
-        setgetAlluser(data.foundUsers);
-        setsaveAllmessage(data.formattedChats);
-        setTotalPosts(data.totalDirectChats);
-      } else {
-        toast.error("other message is not get here");
-      }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (!error.response) {
-          toast.error("Network error. Please check your internet connection.");
-        } else {
-          const status = error.response.status;
-          if (status === 404) {
-            toast.error("Posts not found.");
-          } else if (status === 500) {
-            toast.error("Server error. Please try again later.");
-          } else {
-            toast.error("Something went wrong.");
-          }
-        }
-      } else if (error instanceof Error) {
-        toast.error(error.message);
-      } else {
-        toast.error("An unexpected error occurred.");
-      }
-      console.log("Error fetching posts:", error);
-    }
-  };
+ 
 
   useEffect(() => {
     getAllPost();
@@ -187,7 +150,7 @@ const MessagePage = () => {
       });
       if (data.message === "Chat created succesfully") {
         if (!getchat.find((c) => c._id === data.fullChat._id))
-          dispatch(setChats([data.fullChat, ...getchat]));
+        dispatch(setChats([data.fullChat, ...getchat]));
         dispatch(setSelectedChat(data.fullChat));
         navigate(`/groupchatpage/${chatId}/${data.fullChat._id}/${groupname}`);
       } else {
@@ -221,7 +184,7 @@ const MessagePage = () => {
       const { data } = await axiosClient.post(`${API_CHAT_URL}`, { chatId });
       if (data.message === "Chat created succesfully") {
         if (!getchat.find((c) => c._id === data.fullChat._id))
-          dispatch(setChats([data.fullChat, ...getchat]));
+        dispatch(setChats([data.fullChat, ...getchat]));
         dispatch(setSelectedChat(data.fullChat));
         navigate(`/chatpage/${chatId}/${data.fullChat._id}`);
       } else {
@@ -288,12 +251,50 @@ const MessagePage = () => {
     getAllUsers();
   }, []);
 
+   const getAllPost = async () => {
+     try {
+       const { data } = await axiosClient.get(
+         `${API_CHAT_URL}/allmessages?page=${currentPage}&limit=${postsPerPage}`
+       );
+       if (data.message === "other message get here") {
+         setgetAlluser(data.foundUsers);
+         setsaveAllmessage(data.formattedChats);
+         setTotalPosts(data.totalDirectChats);
+       } else {
+         toast.error("other message is not get here");
+       }
+     } catch (error) {
+       if (axios.isAxiosError(error)) {
+         if (!error.response) {
+           toast.error("Network error. Please check your internet connection.");
+         } else {
+           const status = error.response.status;
+           if (status === 404) {
+             toast.error("Posts not found.");
+           } else if (status === 500) {
+             toast.error("Server error. Please try again later.");
+           } else {
+             toast.error("Something went wrong.");
+           }
+         }
+       } else if (error instanceof Error) {
+         toast.error(error.message);
+       } else {
+         toast.error("An unexpected error occurred.");
+       }
+       console.log("Error fetching posts:", error);
+     }
+   };
+
+   useEffect(()=>{
+     getGroupchats()
+    getAllPost()
+   },[])
+
   useEffect(() => {
     const getAllPost = async () => {
       try {
-        const { data } = await axiosClient.get(
-          `${API_CHAT_URL}/allmessages?page=${currentPage}&limit=${postsPerPage}`
-        );
+        const { data } = await axiosClient.get( `${API_CHAT_URL}/allmessages?page=${currentPage}&limit=${postsPerPage}`);
         if (data.message === "other message get here") {
           setgetAlluser(data.foundUsers);
           setsaveAllmessage(data.formattedChats);

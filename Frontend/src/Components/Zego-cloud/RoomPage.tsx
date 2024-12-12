@@ -24,7 +24,7 @@ const RoomPage = () => {
         sharedLinks: [
           {
             name: "Copy Link",
-            url: `https://clear-view-1nz4.vercel.app/room/${roomId}`,
+            url: `https://clear-view-web.vercel.app/room/${roomId}`,
           },
         ],
         scenario: {
