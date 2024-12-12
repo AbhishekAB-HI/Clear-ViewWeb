@@ -1,7 +1,7 @@
 # Node modules folder (necessary for Node.js projects)
 node_modules/
 
-images/
+
 
 # Logs
 logs/
