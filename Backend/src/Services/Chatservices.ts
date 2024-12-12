@@ -51,6 +51,10 @@ class ChatServices implements IChatServices {
           await this.chatRepository.deleteNotificationsByChat(
             findExistingChat[0]._id.toString()
           );
+        console.log(
+          findExistingChat[0],
+          "222222222222222222222222222222222222222222111111111"
+        );
         return findExistingChat[0];
       } else {
         const roomId = generateRandomString(20);
@@ -392,39 +396,17 @@ class ChatServices implements IChatServices {
         limit
       );
 
-      if (
-        !getAllusershere?.formattedChats ||
-        !getAllusershere.foundUsers ||
-        !getAllusershere.formatgroupchats ||
-        !getAllusershere.totalDirectChats ||
-        !getAllusershere.totalGroupChats
-      ) {
-        return {
-          foundUsers: [],
-          formattedChats: [],
-          formatgroupchats: [],
-          totalDirectChats: 0,
-          totalGroupChats: 0,
-        };
-      }
-
-      const {
-        formattedChats,
-        foundUsers,
-        formatgroupchats,
-        totalGroupChats,
-        totalDirectChats,
-      } = getAllusershere;
-
+      // Return default values if `getAllusershere` or its fields are undefined
       return {
-        formattedChats,
-        foundUsers,
-        formatgroupchats,
-        totalGroupChats,
-        totalDirectChats,
+        formattedChats: getAllusershere?.formattedChats || [],
+        foundUsers: getAllusershere?.foundUsers || [],
+        formatgroupchats: getAllusershere?.formatgroupchats || [],
+        totalDirectChats: getAllusershere?.totalDirectChats || 0,
+        totalGroupChats: getAllusershere?.totalGroupChats || 0,
       };
     } catch (error) {
-      console.log(error);
+      console.error("Error in getOthermessage:", error);
+      return undefined; // Explicitly return `undefined` in case of an error
     }
   }
 

@@ -11,7 +11,7 @@ import { Users2Icon } from "lucide-react";
 import { findFollowers, followuser, getuserinfomations } from "../../Services/User_API/FollowerApi";
 
 const FollowersPage = () => {
-console.log("22222222222222222");
+
   const [getAlluser, setgetAlluser] = useState<IUser[]>([]);
   const [totalFollowers, settotalFollowers] = useState(0);
   const [userid, setuserID] = useState<string>("");

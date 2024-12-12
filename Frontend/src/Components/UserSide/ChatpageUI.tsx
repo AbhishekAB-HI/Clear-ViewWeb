@@ -54,6 +54,7 @@ const ChatPage: React.FC<{}> = () => {
   const [activeUsers, setActiveUsers] = useState<ActiveUsersType[]>([]);
   const [isOnline, setIsOnline] = useState(false);
 
+
     const userToken = useSelector(
       (state: RootState) => state.accessTocken.userTocken
     );

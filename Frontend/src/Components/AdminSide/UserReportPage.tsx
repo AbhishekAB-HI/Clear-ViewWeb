@@ -109,7 +109,7 @@ const UserReportmanagement = () => {
 
         <main className="ml-64 flex-1 p-4">
           <div className="container mx-auto">
-            <h1 className="flex justify-left mb-10 mt-10 text-white text-2xl">
+            <h1 className="flex justify-left mb-10 mt-14 text-white text-2xl">
               User Report Management System
             </h1>
             <Table

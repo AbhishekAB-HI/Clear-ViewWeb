@@ -11,65 +11,49 @@ class ChatController {
 
   async getAllmessages(req: Request, res: Response) {
     try {
+      // Extract the token from the Authorization header
       const token = req.header("Authorization")?.split(" ")[1];
       if (!token) {
         return res
           .status(401)
           .json({ message: "Unauthorized: Token is missing" });
       }
+
+      // Verify the token and extract user information
       const decoded = jwt.verify(
         token,
         process.env.ACCESS_TOKEN_PRIVATE_KEY || ACCESS_TOKEN
       ) as userPayload;
-      const userId = decoded.id;
 
+      const userId = decoded?.id;
       if (!userId) {
         return res.status(400).json({ message: "User ID is missing" });
       }
 
-      const page = parseInt(req.query.page as string, 5) || 1;
-      const limit = parseInt(req.query.limit as string, 4) || 20;
+      // Extract pagination parameters with defaults
+      const page = parseInt(req.query.page as string) || 1; // Default page = 1
+      const limit = parseInt(req.query.limit as string) || 20; // Default limit = 20
 
+      // Fetch other messages using the service layer
       const OtherFiledata = await this.ChatServices.getOthermessage(
         userId,
         page,
         limit
       );
-
-      if (
-        !OtherFiledata?.formattedChats ||
-        !OtherFiledata.foundUsers ||
-        !OtherFiledata.formatgroupchats ||
-        !OtherFiledata.totalDirectChats ||
-        !OtherFiledata.totalGroupChats
-      ) {
-        return res.status(200).json({
-          message: "other message get here",
-          formattedChats: [],
-          foundUsers: [],
-          formatgroupchats: [],
-          totalDirectChats: 0,
-          totalGroupChats: 0,
-        });
-      }
-
-      const {
-        formattedChats,
-        foundUsers,
-        formatgroupchats,
-        totalDirectChats,
-        totalGroupChats,
-      } = OtherFiledata;
-      res.status(200).json({
+      // Handle cases where no data is found or fields are undefined
+      return res.status(200).json({
         message: "other message get here",
-        formattedChats,
-        foundUsers,
-        formatgroupchats,
-        totalDirectChats,
-        totalGroupChats,
+        formattedChats: OtherFiledata?.formattedChats || [],
+        foundUsers: OtherFiledata?.foundUsers || [],
+        formatgroupchats: OtherFiledata?.formatgroupchats || [],
+        totalDirectChats: OtherFiledata?.totalDirectChats || 0,
+        totalGroupChats: OtherFiledata?.totalGroupChats || 0,
       });
     } catch (error) {
-      console.log(error);
+      console.error("Error in getAllmessages:", error);
+      res
+        .status(500)
+        .json({ message: "An error occurred while retrieving messages" });
     }
   }
 
@@ -296,7 +280,7 @@ class ChatController {
         return res
           .status(401)
           .json({ message: "Unauthorized: Token is missing" });
-      } 
+      }
       const decoded = jwt.verify(
         token,
         process.env.ACCESS_TOKEN_PRIVATE_KEY || ACCESS_TOKEN
@@ -450,6 +434,7 @@ class ChatController {
 
   async accessChat(req: Request, res: Response) {
     const { chatId } = req.body;
+
     const token = req.header("Authorization")?.split(" ")[1];
     if (!token) {
       return res
