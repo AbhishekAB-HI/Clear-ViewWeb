@@ -188,7 +188,7 @@ const CommentSection: React.FC<ChildComponentProps> = ({post,saveid,UpdateLikepo
 
     try {
       const { data } = await axiosClient.post(
-        "http://localhost:3000/api/user/replycomment",
+        "https://backend.trendhub.cloud/api/user/replycomment",
         {
           postId,
           commentId,
