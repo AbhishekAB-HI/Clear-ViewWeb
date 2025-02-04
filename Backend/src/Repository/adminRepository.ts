@@ -13,6 +13,7 @@ import { IAdminReposityory } from "../Interface/Admin/AdminRepository";
 import mongoose from "mongoose";
 
 class adminRepository implements IAdminReposityory {
+  
   async findAdminbyemail(email: string): Promise<IUser | null> {
     const finduser = await UserSchemadata.findOne({ email }).exec();
     if (!finduser || !finduser.isAdmin) {

@@ -3,7 +3,6 @@ import Loginpage from "./Components/UserSide/Loginpage.tsx";
 import Registerpage from "./Components/UserSide/RegisterPage.tsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomeLoginPage from "./Components/UserSide/HomeLoginpage.tsx";
-
 import ForgetPassPage from "./Components/UserSide/Forgetpasspage.tsx";
 import AdminLoginpage from "./Components/AdminSide/AdminLogin.tsx";
 import AdminHomePage from "./Components/AdminSide/Adminhome.tsx";
@@ -30,8 +29,11 @@ import ForgetOtppage from './Components/UserSide/forgotOtp.tsx'
 import Forgetpassword from "./Components/UserSide/forgetpassword.tsx";
 
 const App = () => {
+
   return (
+    
     <>
+
       <Router>
         <Toaster position="top-center" />
         <Routes>
@@ -54,8 +56,7 @@ const App = () => {
           {/* <Route path="/" element={<HomePage />} /> */}
           <Route path="/homepage" element={<HomeLoginPage />} />
           <Route path="/chatpage/:chatId/:dataId" element={<ChatPage />} />
-          <Route
-            path="/groupchatpage/:chatId/:dataId/:groupname"
+          <Route path="/groupchatpage/:chatId/:dataId/:groupname"
             element={<GroupChatPage />}
           />
           <Route path="/profile" element={<HomeProfilepage />} />
@@ -99,6 +100,7 @@ const App = () => {
           />
         </Routes>
       </Router>
+
     </>
   );
 };

@@ -18,10 +18,7 @@ router.post("/register", userController.userRegister.bind(userController));
 router.post("/login", userController.userLogin.bind(userController));
 router.post("/verifyotp", userController.userCheckOtp.bind(userController));
 router.patch("/resendotp", userController.resendotp.bind(userController));
-router.patch(
-  "/forgetpassword",
-  userController.setforgetpass.bind(userController)
-);
+router.patch("/forgetpassword",userController.setforgetpass.bind(userController));
 router.post(
   "/forgetmail",
   userController.verifymailforget.bind(userController)
@@ -31,11 +28,7 @@ router.post(
   "/auth/refreshtoken",
   userController.refreshTocken.bind(userController)
 );
-router.patch(
-  "/updatePassword",
-  AuthenticationMiddleware,
-  userController.updatePassword.bind(userController)
-);
+router.patch("/updatePassword",AuthenticationMiddleware,userController.updatePassword.bind(userController));
 
 // Post Interactions
 

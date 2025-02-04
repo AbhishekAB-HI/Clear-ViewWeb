@@ -9,7 +9,7 @@ import { CONTENT_TYPE_MULTER } from "../Components/Constants/Constants";
 
 // ClientNew;
 const axiosClientPost = axios.create({
-  baseURL: "https://clear-view-web.vercel.app",
+  baseURL: "https://backend.trendhub.cloud",
   headers: {
     "Content-Type": CONTENT_TYPE_MULTER,
   },

@@ -11,7 +11,7 @@ import { IUserServices } from "../Interface/Users/UserServices";
 
 dotenv.config();
 
-class UserController {
+class UserController  {
   constructor(private userService: IUserServices) {}
 
   async userRegister(req: Request, res: Response): Promise<void> {
@@ -90,7 +90,6 @@ class UserController {
   async userLogin(req: Request, res: Response): Promise<void> {
     try {
       const userData = req.body;
-      console.log(userData,'find datas');
       let userdata = await this.userService.verifyUser(userData);
       if (userdata) {
         let refreshtok = userdata.refreshToken;

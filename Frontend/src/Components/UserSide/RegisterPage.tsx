@@ -13,11 +13,10 @@ import logoWeb from "../Animations/Animation - 1724244656671.json";
 import { API_USER_URL } from "../Constants/Constants";
 import { FaSpinner } from "react-icons/fa";
 import { googleSignIn } from "../../Services/User_API/Homepageapis";
+
 const Registerpage: React.FC = () => {
-  console.log("done")
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-console.log("1111111")
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .trim()

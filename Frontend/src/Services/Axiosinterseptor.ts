@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 
 // ClientNew;
 const axiosClient = axios.create({
-  baseURL: "https://clear-view-web.vercel.app",
+  baseURL: "https://backend.trendhub.cloud",
   headers: {
     "Content-Type": "application/json",
   },
@@ -73,9 +73,7 @@ axiosClient.interceptors.response.use(
         store.dispatch(clearuserAccessTocken());
         toast.error("Your account is Blocked. Please contact support.");
         window.location.href = "/login";
-        return Promise.reject(
-          new Error("Your account is inactive. Please contact support.")
-        );
+        return Promise.reject(new Error("Your account is inactive. Please contact support."));
       } else if (errorCode === "NOT_VERIFIED") {
         return Promise.reject(
           new Error(
