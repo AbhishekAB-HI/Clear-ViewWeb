@@ -15,7 +15,7 @@ import {
 } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { API_CHAT_URL, API_USER_URL } from "../Constants/Constants";
+import { API_CHAT_URL, API_USER_URL, ENDPOINT } from "../Constants/Constants";
 import toast from "react-hot-toast";
 import EmojiPicker from "emoji-picker-react";
 import RenderReplies from "../UserSide/RenderReplies";
@@ -26,7 +26,7 @@ import { setChats, setSelectedChat } from "../../Redux-store/redux-slice";
 import { useDispatch, useSelector } from "react-redux";
 import { store } from "../../Redux-store/reduxstore";
 import io, { Socket } from "socket.io-client";
-const ENDPOINT = "https://backend.trendhub.cloud";
+
 let socket: Socket;
 const ViewProfilePage = () => {
   const location = useLocation();

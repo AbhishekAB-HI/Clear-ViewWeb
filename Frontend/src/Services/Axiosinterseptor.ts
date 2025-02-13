@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 
 // ClientNew;
 const axiosClient = axios.create({
-  baseURL: "https://backend.trendhub.cloud",
+  baseURL: "http://localhost:3000",
   headers: {
     "Content-Type": "application/json",
   },
@@ -47,7 +47,7 @@ axiosClient.interceptors.response.use(
 
         if (refreshToken) {
           const { data } = await axios.post(
-            "https://backend.trendhub.cloud/auth/refreshtoken",
+            "http://localhost:3000/auth/refreshtoken",
             { refreshToken }
           );
 

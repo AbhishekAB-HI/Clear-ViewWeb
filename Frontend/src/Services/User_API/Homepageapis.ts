@@ -54,12 +54,6 @@ export const findAllpostupdate = async (
 };
 
 
-
-
-
-
-
-
 export const commentThePost = async (
   postId: string,
   userId: string,
@@ -125,14 +119,6 @@ export const likeupdate = async (postId: string, userId: string) => {
 
 
 
-
-
-
-
-
-
-
-
 export const getnotifications = async () => {
   const { data } = await axiosClient.get(`${API_CHAT_URL}/getnotifications`);
   if (data.message === "get all notifications") {
@@ -181,14 +167,14 @@ interface loginData {
 }
 
  export const googleSignIn = async () => {
-    window.location.href = "https://backend.trendhub.cloud/auth";
+    window.location.href = "http://localhost:3000/auth";
   };
 
 
 export const loginPage = async (values: loginData) => {
      const { data } = await axios.post(`${API_USER_URL}/login`, values);
      if(data.message === "user Login succesfully"){
-        return {
+        return {  
           success: true,
           Acesstoc: data.accesstok,
           Refreshtoc: data.refreshtok,

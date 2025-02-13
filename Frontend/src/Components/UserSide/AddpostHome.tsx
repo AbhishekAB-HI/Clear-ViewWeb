@@ -17,7 +17,7 @@ import io, { Socket } from "socket.io-client";
 import { useSelector } from "react-redux";
 import { store } from "../../Redux-store/reduxstore";
 import { createNewPost } from "../../Services/User_API/Createnewpost";
-const ENDPOINT = "https://backend.trendhub.cloud";
+import { ENDPOINT } from "../Constants/Constants";
 let socket: Socket;
 const CreateHomePostModal = ({
   togglepostModal,

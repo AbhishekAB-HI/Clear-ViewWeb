@@ -2,7 +2,7 @@
 import { ObjectId } from "mongoose";
 
 export interface userPayload {
-  id: ObjectId;
+  id: any;
 }
 
 export interface adminPayload {

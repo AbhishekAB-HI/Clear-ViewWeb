@@ -2,10 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import UserSchemadata from "../model/userModel";
-import { userPayload } from "../Types/Commontype/TockenInterface";
-import { ACCESS_TOKEN } from "../config/Jwt";
+
 
 dotenv.config();
+
+const ADMIN_TOKEN_PRIVATE = "key_for_adminaccess";
 
 const AuthenticationMiddleware = async (
   req: Request,
@@ -17,7 +18,10 @@ const AuthenticationMiddleware = async (
     return res.status(401).json({ message: "Unauthorized: Token is missing" });
   }
   try {
-    const decoded = jwt.verify(token, process.env.ADMIN_TOKEN_PRIVATE_KEY ) as userPayload ;
+    const decoded = jwt.verify(
+      token,
+      process.env.ADMIN_TOKEN_PRIVATE_KEY || ADMIN_TOKEN_PRIVATE
+    ) as any; ;
     const userdata = await UserSchemadata.findById(decoded.id);
     if (!userdata) {
       return res.status(404).json({ message: "User not found" });

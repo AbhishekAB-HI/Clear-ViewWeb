@@ -8,11 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearuserAccessTocken } from "../../Redux-store/redux-slice";
 import { FaUserCircle } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
-import { API_USER_URL } from "../Constants/Constants";
+import { API_USER_URL, ENDPOINT } from "../Constants/Constants";
 import toast from "react-hot-toast";
 import io, { Socket } from "socket.io-client";
 import axiosClient from "../../Services/Axiosinterseptor";
-const ENDPOINT = "https://backend.trendhub.cloud";
 
 
 let socket: Socket;
@@ -118,25 +117,25 @@ const Navbar2 = () => {
           </div>
 
           {/* Account Dropdown */}
-          <div className="flex items-center space-x-4 md:space-x-6 lg:mr-10 text-white text-base md:text-lg">
+          <div className="flex items-center  space-x-4 md:space-x-6 lg:mr-10 text-white text-base md:text-lg">
             {userDetails ? (
               <div className="relative inline-block text-left">
                 <button
                   onClick={() => setAccOpen(!AccOpen)}
                   className="bg-gray-50 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-gray-700 dark:text-white hidden lg:block"
                 >
-                  Account
+                  Account 
                 </button>
                 {AccOpen && (
                   <div
-                    className="absolute lg:right-20 lg:top-0 w-32 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5" // Adjusted width and margin
+                    className="absolute  lg:right-20 lg:top-0 w-32 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5" // Adjusted width and margin
                   >
-                    <div className="py-1">
+                    <div className="py-1 ">
                       <Link
                         className="block px-4 py-1 text-sm text-gray-700 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-600"
                         to="/profile"
                       >
-                        Profile
+                        Profile 
                       </Link>
                       <button
                         onClick={handleLogout}

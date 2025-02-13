@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 import { Home, MessageSquare, Users, Bell } from "lucide-react";
 import { useSelector } from "react-redux";
 import { store } from "../../Redux-store/reduxstore";
-import { API_CHAT_URL } from "../Constants/Constants";
+import { API_CHAT_URL, ENDPOINT } from "../Constants/Constants";
 import toast from "react-hot-toast";
 import { IAllNotification, Notification } from "../Interfaces/Interface";
 import io, { Socket } from "socket.io-client";
 import axiosClient from "../../Services/Axiosinterseptor";
-const ENDPOINT = "https://backend.trendhub.cloud";
+
 let socket: Socket;
 let selectedChatCompare: any;
 const SideNavBar = () => {

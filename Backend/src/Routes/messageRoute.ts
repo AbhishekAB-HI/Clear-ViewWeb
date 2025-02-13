@@ -3,8 +3,6 @@ import messageRepository from "../Repository/Messagerepository";
 import MessageServices from "../Services/Messageservices";
 import MessageControllers from "../Controllers/MessageController";
 import AuthenticationMiddleware from "../Middlewares/Userauthmiddleware";
-import multer, { FileFilterCallback } from "multer";
-import path from "path";
 import { upload } from "../config/Multerchatconfig";
 
 const messageRepo = new messageRepository();

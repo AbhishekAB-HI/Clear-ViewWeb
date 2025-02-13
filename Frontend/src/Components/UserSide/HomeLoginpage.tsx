@@ -3,10 +3,7 @@ import logoWeb from "../Animations/Animation - 1724244656671.json";
 import { Link, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import { store } from "../../Redux-store/reduxstore";
-import {
-  clearuserAccessTocken,
-  setUserAccessTocken,
-} from "../../Redux-store/redux-slice";
+import {clearuserAccessTocken,setUserAccessTocken} from "../../Redux-store/redux-slice";
 import { FaBars, FaComment, FaPaperPlane, FaUserCircle } from "react-icons/fa";
 import { MdMoreVert } from "react-icons/md";
 import profileimg from "../Images/Userlogo.png";
@@ -42,8 +39,8 @@ import {
   updatelastseen,
 } from "../../Services/User_API/Homepageapis";
 import { getuserinfomations } from "../../Services/User_API/FollowerApi";
+import { ENDPOINT } from "../Constants/Constants";
 let selectedChatCompare: any;
-const ENDPOINT = "https://backend.trendhub.cloud";
 let socket: Socket;
 const HomeLoginPage = () => {
   type RootState = ReturnType<typeof store.getState>;
@@ -63,9 +60,7 @@ const HomeLoginPage = () => {
   const [replyContent, setReplyContent] = useState("");
   const [showMobileSearch, setShowMobileSearch] = useState(false);
   const [AccOpen, setAccOpen] = useState(false);
-  const [SaveAllNotifications, setSaveAllNotifications] = useState<
-    Notification[]
-  >([]);
+  const [SaveAllNotifications, setSaveAllNotifications] = useState<Notification[]>([]);
   const [Category, setCategory] = useState("Allpost");
   const [showLikesList, setShowLikesList] = useState(false);
   const [savelikeNotify, setsavelikeNotify] = useState<IAllNotification>();
@@ -74,7 +69,6 @@ const HomeLoginPage = () => {
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const observer = useRef<IntersectionObserver | null>(null);
-
   const [showpostModal, setShowpostModal] = useState(false);
 
   moment.updateLocale("en", {
@@ -94,6 +88,8 @@ const HomeLoginPage = () => {
       yy: "%d years",
     },
   });
+
+  
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -748,34 +744,34 @@ const HomeLoginPage = () => {
 
       <div className="flex ">
         {/* Sidebar --------------------------------------------------------------------- */}
-        {/* <SideBar /> */}
         <button
-          className="md:hidden fixed  top-20  left-0 z-50 text-2xl text-white focus:outline-none"
+          className="md:hidden fixed top-20 left-4 z-50 text-2xl text-white focus:outline-none"
           onClick={toggleSidebar}
         >
+          
+          
           <FaBars />
+
         </button>
 
         {/* Sidebar */}
         <aside
-          className={`fixed top-24  left-0 h-full bg-black text-gray-100 w-60 p-6 space-y-6 
-        shadow-xl transition-all duration-300 ease-in-out z-50
-        ${isOpen ? "translate-x-0" : "-translate-x-full"}
-        md:translate-x-0 md:w-72 md:left-0`}
+          className={`fixed top-24 left-0 h-full bg-black text-gray-100 w-60 p-4 space-y-6 shadow-xl
+  transition-transform duration-300 ease-in-out z-50
+  ${isOpen ? "translate-x-0" : "-translate-x-full"}
+  md:translate-x-0 md:w-72`}
         >
           {/* Create Post Button */}
           <button
             onClick={() => handlepostClick()}
-            className="w-full bg-blue-600 mt-10 hover:bg-blue-700 text-white rounded-lg px-4 py-3 
-             transition-all duration-200 flex items-center justify-center space-x-2 font-medium
-             shadow-lg hover:shadow-blue-500/20"
+            className="w-full bg-blue-600 mt-6 hover:bg-blue-700 text-white rounded-lg px-4 py-3
+    transition-all duration-200 flex items-center justify-center space-x-2 font-medium shadow-lg"
           >
             <Plus size={20} />
             <span>Create Post</span>
           </button>
 
           {/* Navigation Links */}
-
           <nav className="space-y-2">
             {[
               { icon: <Home size={24} />, text: "Home", path: "/homepage" },
@@ -797,7 +793,6 @@ const HomeLoginPage = () => {
                 text: "Following",
                 path: "/following",
               },
-
               {
                 icon: <Bell size={24} />,
                 text: "Notifications",
@@ -814,43 +809,35 @@ const HomeLoginPage = () => {
               <Link
                 key={index}
                 to={item.path}
-                className="flex items-center space-x-3 px-4 py-3 rounded-lg
-              hover:bg-gray-800 transition-all duration-200
-              group relative overflow-hidden"
+                className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-800
+        transition-all duration-200 group relative overflow-hidden"
               >
-                <div
-                  className="text-gray-400 group-hover:text-blue-500 
-              transition-colors duration-200"
-                >
+                <div className="text-gray-400 group-hover:text-blue-500 transition-colors duration-200">
                   {item.icon}
                 </div>
-                <span
-                  className="text-gray-300 group-hover:text-white
-              transition-colors duration-200 text-sm font-medium"
-                >
+                <span className="text-gray-300 group-hover:text-white transition-colors duration-200 text-sm font-medium">
                   {item.text}
                 </span>
                 {item.text === "Messages" && item?.notificationCount && (
-                  <span className="absolute top-0 left-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                  <span className="absolute top-1 right-4 inline-flex items-center justify-center px-2 py-1 text-xs font-bold text-white bg-red-600 rounded-full">
                     {item.notificationCount}
                   </span>
                 )}
-
                 {item.text === "Notifications" && item?.followNotification && (
-                  <span className="absolute top-0 left-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                  <span className="absolute top-1 right-4 inline-flex items-center justify-center px-2 py-1 text-xs font-bold text-white bg-red-600 rounded-full">
                     1
                   </span>
                 )}
                 <div
-                  className="absolute inset-y-0 left-0 w-1 bg-blue-600 
-              transform -translate-x-full group-hover:translate-x-0
-              transition-transform duration-200"
+                  className="absolute inset-y-0 left-0 w-1 bg-blue-600 transform -translate-x-full
+          group-hover:translate-x-0 transition-transform duration-200"
                 />
               </Link>
             ))}
           </nav>
         </aside>
 
+        {/* Overlay for Mobile Sidebar */}
         {isOpen && (
           <div
             className="fixed inset-0 bg-black opacity-50 z-40 md:hidden"
@@ -860,11 +847,11 @@ const HomeLoginPage = () => {
 
         {/* Sidebar --------------------------------------------------------------------- */}
         {/* Main Content */}
-        <main className="w-full  lg:w-4/5  ml-auto p-4">
+        <main className="w-full   lg:w-4/5  ml-auto p-4">
           {/* Tabs */}
           <div
             style={{ fontSize: "16px" }}
-            className="fixed  top-20 left-50 w-4/5   border-l border-t   mt-0 border-b  border-gray-700  sm:w-4/5 lg:w-4/5  z-50 bg-black text-white overflow-x-auto px-4 py-1 flex items-center justify-start space-x-5 lg:space-x-20 flex-wrap"
+            className="fixed  top-20 left-102 w-4/5   border-l border-t   mt-0 border-b  border-gray-700  sm:w-4/5 lg:w-4/5  z-50 bg-black text-white overflow-x-auto px-4 py-1 flex items-center justify-start space-x-5 lg:space-x-20 flex-wrap"
           >
             <button
               onClick={() => handleAllPost("Allpost")}

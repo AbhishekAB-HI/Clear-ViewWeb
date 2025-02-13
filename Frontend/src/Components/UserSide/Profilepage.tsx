@@ -32,6 +32,7 @@ import {
   API_CHAT_URL,
   API_MESSAGE_URL,
   API_USER_URL,
+  ENDPOINT,
 } from "../Constants/Constants";
 import EditPasswordModal from "../UserSide/EditPassword";
 import { Heart, InboxIcon, Users, Users2Icon } from "lucide-react";
@@ -41,7 +42,6 @@ import SideNavBar2 from "../UserSide/Sidebar2";
 import { sendfollow } from "../UserSide/GlobalSocket/CreateSocket";
 import io, { Socket } from "socket.io-client";
 import axiosClient from "../../Services/Axiosinterseptor";
-const ENDPOINT = "https://backend.trendhub.cloud";
 let socket: Socket;
 const HomeProfilepage = () => {
   type RootState = ReturnType<typeof store.getState>;

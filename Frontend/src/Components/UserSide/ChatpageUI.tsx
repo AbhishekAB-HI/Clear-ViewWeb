@@ -32,9 +32,10 @@ import {
   getuserid,
   Sendmessages,
 } from "../../Services/User_API/Chatpage";
+import { ENDPOINT } from "../Constants/Constants";
 let socket: Socket;
 let selectedChatCompare: any;
-const ENDPOINT = "https://backend.trendhub.cloud";
+
 const ChatPage: React.FC<{}> = () => {
 
   const [messages, setMessages] = useState<any[]>([]);

@@ -44,16 +44,6 @@ class chatRepository implements IChatRepository {
     }
   }
 
-  // async findAccessgroupchat(chatId: string): Promise<Chats | null> {
-  //   let isChat = await ChatSchemamodel.findById(chatId)
-  //     .populate("users", "-password")
-  //     .populate("latestMessage");
-  //   isChat = await ChatSchemamodel.populate(isChat, {
-  //     path: "latestMessage.sender",
-  //     select: "name pic email",
-  //   });
-  //   return isChat;
-  // }
   async findExistingChat(userId: string, chatId: string): Promise<Chats[]> {
     return await ChatSchemamodel.find({
       isGroupchat: false,

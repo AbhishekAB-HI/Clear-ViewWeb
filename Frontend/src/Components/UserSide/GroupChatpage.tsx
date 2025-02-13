@@ -31,7 +31,7 @@ import {
   getUserIdData,
   Sendmessages,
 } from "../../Services/User_API/Chatpage";
-const ENDPOINT = "https://backend.trendhub.cloud";
+import { ENDPOINT } from "../Constants/Constants";
 let socket: Socket;
 let selectedChatCompare: any;
 

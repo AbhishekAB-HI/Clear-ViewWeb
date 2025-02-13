@@ -17,7 +17,7 @@ import "cropperjs/dist/cropper.css";
 import { createNewPost } from "../../Services/User_API/Createnewpost";
 import { useSelector } from "react-redux";
 import { store } from "../../Redux-store/reduxstore";
-const ENDPOINT = "https://backend.trendhub.cloud";
+import { ENDPOINT } from "../Constants/Constants";
 let socket: Socket;
 const CreatePostModal = ({
   togglepostModal,

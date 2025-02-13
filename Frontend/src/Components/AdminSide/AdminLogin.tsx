@@ -1,4 +1,4 @@
-import "tailwindcss/tailwind.css";
+// import "tailwindcss/tailwind.css";
 import newlogo from "../Images/newslogo.jpg";
 import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";

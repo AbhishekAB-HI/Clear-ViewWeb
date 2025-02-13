@@ -24,6 +24,7 @@ export const googleAuthCallback = passportAuth.authenticate("google", {
 export const authSuccess = async (req: AuthenticatedRequest, res: Response) => {
   try {
     if (!req.user) {
+      
       return res.redirect("/auth/callback/failure");
     }
     const username = req.user.displayName;
@@ -35,9 +36,7 @@ export const authSuccess = async (req: AuthenticatedRequest, res: Response) => {
       };
       const tocken = generateAccessToken(userPayload);
       console.log(tocken, "tocken back end");
-      res.redirect(
-        `https://clear-view-web.vercel.app/homepage?tocken=${tocken}`
-      );
+      res.redirect(`http://localhost:5173/homepage?tocken=${tocken}`);
     } else {
       const options = {
         new: true,
