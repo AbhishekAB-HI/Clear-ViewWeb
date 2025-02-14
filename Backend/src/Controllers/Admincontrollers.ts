@@ -51,7 +51,7 @@ class AdminController {
     try {
       const page = parseInt(req.query.page as string) || 1;
       const limit = parseInt(req.query.limit as string) || 2;
-      const search = req.query.search;
+      const search = req.query.search as string | undefined;
       let userdata = await this.adminservises.getUserdetails(
         page,
         limit,
